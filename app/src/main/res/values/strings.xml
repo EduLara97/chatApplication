@@ -8,4 +8,5 @@
     <string name="text_genre_man">Hombre</string>
     <string name="text_genre_woman">Mujer</string>
     <string name="text_new_password">Ingrese su contraseña nueva</string>
+    <string name="text_button_create_new_user">Crear Nuevo Usuario</string>
 </resources>

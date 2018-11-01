@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.NavUtils
 import android.view.MenuItem
+import android.view.View
+import android.widget.CheckBox
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
@@ -21,11 +23,23 @@ class RegisterActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> {
-                // Respond to the action bar's Up/Home button
                 finish()
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
     }
+
+    fun onCheckBoxClicked(view : View){
+        if(view is CheckBox){
+            val checked: Boolean = view.isChecked
+
+            when (view.id) {
+                R.id.checkBoxMale -> if (checked) if(checkBoxFemale.isChecked) checkBoxFemale.toggle()
+                R.id.checkBoxFemale -> if (checked) if(checkBoxMale.isChecked)checkBoxMale.toggle()
+            }
+        }
+    }
+
+
 }

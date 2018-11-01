@@ -77,6 +77,7 @@
             android:layout_toRightOf="@+id/imageView4">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/edtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/text_name" />
@@ -117,6 +118,7 @@
             android:layout_toRightOf="@+id/ivUsername">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignTop="@+id/textInputLayout"
@@ -145,7 +147,7 @@
             app:srcCompat="@drawable/genero" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/checkBoxMale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -153,21 +155,24 @@
             android:layout_marginStart="16dp"
             android:layout_toEndOf="@+id/imageView5"
             android:layout_toRightOf="@+id/imageView5"
-            android:text="@string/text_genre_man" />
+            android:text="@string/text_genre_man"
+            android:onClick="onCheckBoxClicked"/>
 
         <CheckBox
-            android:id="@+id/checkBox3"
+            android:id="@+id/checkBoxFemale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/checkBox2"
+            android:layout_alignTop="@+id/checkBoxMale"
             android:layout_marginLeft="13dp"
             android:layout_marginStart="13dp"
-            android:layout_toEndOf="@+id/checkBox2"
-            android:layout_toRightOf="@+id/checkBox2"
-            android:text="@string/text_genre_woman" />
+            android:layout_toEndOf="@+id/checkBoxMale"
+            android:layout_toRightOf="@+id/checkBoxMale"
+            android:text="@string/text_genre_woman"
+            android:onClick="onCheckBoxClicked"/>
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/relativeLayout4"
         android:layout_width="312dp"
         android:layout_height="63dp"
         android:layout_marginEnd="16dp"
@@ -183,7 +188,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_lock" />
+            android:src="@drawable/ic_lock"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -195,11 +200,26 @@
             android:layout_toRightOf="@+id/imageView7">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/edtNewPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/text_new_password" />
+                android:hint="@string/text_new_password"/>
         </android.support.design.widget.TextInputLayout>
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnCreateUser"
+        android:layout_width="313dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorAccent"
+        android:text="@string/text_button_create_new_user"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"/>
 
 
 </android.support.constraint.ConstraintLayout>
