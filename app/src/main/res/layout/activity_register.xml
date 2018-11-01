@@ -19,7 +19,7 @@
             android:theme="@style/ToolBarStyle" />
     </android.support.design.widget.AppBarLayout>
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivPhoto"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBar"
-        app:srcCompat="@mipmap/user_2" />
+        android:src="@mipmap/user_2" />
 
     <TextView
         android:id="@+id/tvChangePhoto"

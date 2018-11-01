@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "594089123007",
+    "firebase_url": "https://chatapplication-2305e.firebaseio.com",
+    "project_id": "chatapplication-2305e",
+    "storage_bucket": "chatapplication-2305e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594089123007:android:30f30c73cd4ea44b",
+        "android_client_info": {
+          "package_name": "com.example.edulara.chatapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594089123007-gjl8j0op807udqhpj89iav8lm7ffnel1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.edulara.chatapplication",
+            "certificate_hash": "946bcbf491000988f1002ed48425efd8e65e2f07"
+          }
+        },
+        {
+          "client_id": "594089123007-5k1nmv07c329ha6bqea46l1hla19tf4n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIcDIzsrABSgFV1n6sQCrQhvFsZQkExt8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594089123007-5k1nmv07c329ha6bqea46l1hla19tf4n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

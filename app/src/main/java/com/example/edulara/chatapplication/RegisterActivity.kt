@@ -1,14 +1,34 @@
 package com.example.edulara.chatapplication
 
+import android.Manifest
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.hardware.Camera
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
+import android.support.v4.app.ActivityCompat
+import android.support.v4.app.ActivityCompat.startActivityForResult
 import android.support.v4.app.NavUtils
+import android.support.v4.content.ContextCompat
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
+import android.widget.ImageView
+import com.example.edulara.chatapplication.R.id.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
+
+    private val mAuth = FirebaseAuth.getInstance()
+    private var mAuthListener:FirebaseAuth.AuthStateListener?=null
+    private val CAMERA_REQUEST_CODE = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,7 +37,32 @@ class RegisterActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        mAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
+            val user:FirebaseUser= firebaseAuth.currentUser!!
+            if (user != null) Log.i("Firebase_login", "onAuthStateChanged:signed_in:" + user.getUid())
+            else Log.i("Firebase_logut", "onAuthStateChanged:signed_out")
+        }
 
+        tvChangePhoto.setOnClickListener {
+            val bo : Boolean = checkCameraHardware(this)
+            if(bo){
+                val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                if (permissionCheck != PackageManager.PERMISSION_GRANTED) makeRequest()
+                else openCamera()
+            }
+        }
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mAuth.addAuthStateListener(mAuthListener!!)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mAuth.removeAuthStateListener(mAuthListener!!)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -41,5 +86,30 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkCameraHardware(context: Context): Boolean {
+        return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)
+    }
+
+    private fun makeRequest() {
+        ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.CAMERA),
+                CAMERA_REQUEST_CODE)
+    }
+
+    private fun openCamera() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(packageManager)?.also {
+                startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE)
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            ivPhoto.scaleType = ImageView.ScaleType.CENTER_CROP
+            ivPhoto.setImageBitmap(imageBitmap)
+        }
+    }
 
 }
