@@ -10,6 +10,7 @@ import android.hardware.Camera
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.support.annotation.NonNull
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityCompat.startActivityForResult
 import android.support.v4.app.NavUtils
@@ -19,6 +20,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.Toast
 import com.example.edulara.chatapplication.R.id.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -37,12 +39,6 @@ class RegisterActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        mAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
-            val user:FirebaseUser= firebaseAuth.currentUser!!
-            if (user != null) Log.i("Firebase_login", "onAuthStateChanged:signed_in:" + user.getUid())
-            else Log.i("Firebase_logut", "onAuthStateChanged:signed_out")
-        }
-
         tvChangePhoto.setOnClickListener {
             val bo : Boolean = checkCameraHardware(this)
             if(bo){
@@ -51,18 +47,6 @@ class RegisterActivity : AppCompatActivity() {
                 else openCamera()
             }
         }
-
-
-    }
-
-    override fun onStart() {
-        super.onStart()
-        mAuth.addAuthStateListener(mAuthListener!!)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        mAuth.removeAuthStateListener(mAuthListener!!)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -84,6 +68,20 @@ class RegisterActivity : AppCompatActivity() {
                 R.id.checkBoxFemale -> if (checked) if(checkBoxMale.isChecked)checkBoxMale.toggle()
             }
         }
+    }
+
+    fun onClickNewUserButton(view:View){
+        if (!edtEmail.text!!.toString().isEmpty() && !edtNewPassword.text!!.toString().isEmpty()) {
+            mAuth.createUserWithEmailAndPassword(edtEmail.text!!.toString(), edtNewPassword.text!!.toString())
+                    .addOnCompleteListener(this) { task ->
+                run {
+                    if (task.isSuccessful) correctLogin()
+                     else incorrectLogin("Fallo de autenticación")
+                }
+            }
+        } else incorrectLogin("Ingresar credenciales")
+
+
     }
 
     private fun checkCameraHardware(context: Context): Boolean {
@@ -110,6 +108,14 @@ class RegisterActivity : AppCompatActivity() {
             ivPhoto.scaleType = ImageView.ScaleType.CENTER_CROP
             ivPhoto.setImageBitmap(imageBitmap)
         }
+    }
+
+    private fun correctLogin(){
+        startActivity(Intent(this, ListChatsActivity::class.java))
+    }
+
+    private fun incorrectLogin(error:String){
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
     }
 
 }
