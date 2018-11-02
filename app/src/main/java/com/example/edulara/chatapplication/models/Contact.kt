@@ -1,4 +1,4 @@
-package com.example.edulara.chatapplication
+package com.example.edulara.chatapplication.models
 
 /**
  * Created by Edwin on 2/11/2018.

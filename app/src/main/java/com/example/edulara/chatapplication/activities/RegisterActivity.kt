@@ -1,4 +1,4 @@
-package com.example.edulara.chatapplication
+package com.example.edulara.chatapplication.activities
 
 import android.Manifest
 import android.app.Activity
@@ -6,30 +6,25 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.hardware.Camera
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.support.annotation.NonNull
 import android.support.v4.app.ActivityCompat
-import android.support.v4.app.ActivityCompat.startActivityForResult
-import android.support.v4.app.NavUtils
 import android.support.v4.content.ContextCompat
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.Toast
-import com.example.edulara.chatapplication.R.id.*
+import com.example.edulara.chatapplication.R
+import com.example.edulara.chatapplication.presenters.RegisterPresenter
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_register.*
 
-class RegisterActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity(), RegisterPresenter.RegisterDelegate {
 
     private val mAuth = FirebaseAuth.getInstance()
-    private var mAuthListener:FirebaseAuth.AuthStateListener?=null
+    private val mPresenter = RegisterPresenter(this)
     private val CAMERA_REQUEST_CODE = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,16 +66,14 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun onClickNewUserButton(view:View){
-        if (!edtEmail.text!!.toString().isEmpty() && !edtNewPassword.text!!.toString().isEmpty()) {
-            mAuth.createUserWithEmailAndPassword(edtEmail.text!!.toString(), edtNewPassword.text!!.toString())
-                    .addOnCompleteListener(this) { task ->
-                run {
-                    if (task.isSuccessful) correctLogin()
-                     else incorrectLogin("Fallo de autenticación")
-                }
-            }
-        } else incorrectLogin("Ingresar credenciales")
-
+        val g:String? = when {
+            checkBoxFemale.isChecked -> "F"
+            checkBoxMale.isChecked -> "H"
+            else -> ""
+        }
+        mPresenter.register(edtEmail.text.toString(),
+                edtNewPassword.text.toString(),
+                edtName.text.toString(),g.toString(),null)
 
     }
 
@@ -110,12 +103,12 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun correctLogin(){
+    override fun correctLogin(){
         startActivity(Intent(this, ListChatsActivity::class.java))
         finish()
     }
 
-    private fun incorrectLogin(error:String){
+    override fun incorrectLogin(error:String){
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
     }
 

@@ -1,4 +1,4 @@
-package com.example.edulara.chatapplication;
+package com.example.edulara.chatapplication.utils;
 
 import android.content.Context;
 

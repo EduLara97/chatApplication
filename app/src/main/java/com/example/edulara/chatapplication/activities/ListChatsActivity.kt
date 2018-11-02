@@ -1,10 +1,13 @@
-package com.example.edulara.chatapplication
+package com.example.edulara.chatapplication.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import com.example.edulara.chatapplication.adapters.ChatsAdapter
+import com.example.edulara.chatapplication.models.Contact
+import com.example.edulara.chatapplication.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_list_chats.*
 
@@ -22,8 +25,12 @@ class ListChatsActivity : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_account_circle)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val values = listOf(Contact("Pedro","pedro@gmail.com"
-                ,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpwddBjd3Aqu5iWIw--SE84eIVJqSGWbPo-rw-zDmAiW1LRPJ3nw"))
+        val values = listOf(Contact("Pedro", "pedro@gmail.com"
+                , "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpwddBjd3Aqu5iWIw--SE84eIVJqSGWbPo-rw-zDmAiW1LRPJ3nw"),
+                Contact("Pedro", "pedro@gmail.com"
+                        , "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpwddBjd3Aqu5iWIw--SE84eIVJqSGWbPo-rw-zDmAiW1LRPJ3nw"),
+                Contact("Pedro", "pedro@gmail.com"
+                        , "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpwddBjd3Aqu5iWIw--SE84eIVJqSGWbPo-rw-zDmAiW1LRPJ3nw"))
         val list : List<Contact> = values
 
         contactsReady(list)
@@ -36,10 +43,10 @@ class ListChatsActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
-            R.id.menu_add->{
+            R.id.menu_add ->{
 
             }
-            R.id.menu_close->{
+            R.id.menu_close ->{
                 finish()
                 mAuth.signOut()
             }
@@ -47,7 +54,7 @@ class ListChatsActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun contactsReady(contacts:List<Contact>){
+    private fun contactsReady(contacts:List<Contact>){
         recyclerView.adapter = ChatsAdapter(contacts, this)
     }
 

@@ -1,7 +1,8 @@
-package com.example.edulara.chatapplication
+package com.example.edulara.chatapplication.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.example.edulara.chatapplication.R
 
 class ChatActivity : AppCompatActivity() {
 
