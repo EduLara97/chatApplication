@@ -2,9 +2,9 @@ package com.example.edulara.chatapplication
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
-import com.example.edulara.chatapplication.R.id.menu_add
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_list_chats.*
 
@@ -20,6 +20,13 @@ class ListChatsActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_account_circle)
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        val values = listOf(Contact("Pedro","pedro@gmail.com"
+                ,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpwddBjd3Aqu5iWIw--SE84eIVJqSGWbPo-rw-zDmAiW1LRPJ3nw"))
+        val list : List<Contact> = values
+
+        contactsReady(list)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -38,6 +45,10 @@ class ListChatsActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun contactsReady(contacts:List<Contact>){
+        recyclerView.adapter = ChatsAdapter(contacts, this)
     }
 
 

@@ -112,6 +112,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun correctLogin(){
         startActivity(Intent(this, ListChatsActivity::class.java))
+        finish()
     }
 
     private fun incorrectLogin(error:String){
