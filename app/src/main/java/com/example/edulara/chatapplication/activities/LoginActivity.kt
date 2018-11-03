@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginDelegate {
     }
 
     override fun correctLogin() {
-
         startActivity(Intent(this, ListChatsActivity::class.java))
+        finish()
     }
 }

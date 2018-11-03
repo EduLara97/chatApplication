@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -23,9 +24,9 @@ import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity(), RegisterPresenter.RegisterDelegate {
 
-    private val mAuth = FirebaseAuth.getInstance()
     private val mPresenter = RegisterPresenter(this)
     private val CAMERA_REQUEST_CODE = 101
+    private var hasPhoto = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,9 +72,16 @@ class RegisterActivity : AppCompatActivity(), RegisterPresenter.RegisterDelegate
             checkBoxMale.isChecked -> "H"
             else -> ""
         }
-        mPresenter.register(edtEmail.text.toString(),
-                edtNewPassword.text.toString(),
-                edtName.text.toString(),g.toString(),null)
+        if(hasPhoto){
+            val bitmapDrawable = ivPhoto.drawable as BitmapDrawable
+            mPresenter.register(edtEmail.text.toString(),
+                    edtNewPassword.text.toString(),
+                    edtName.text.toString(),g.toString(),bitmapDrawable.bitmap)
+        } else mPresenter.register(edtEmail.text.toString(),
+                    edtNewPassword.text.toString(),
+                    edtName.text.toString(),g.toString(),null)
+
+
 
     }
 
@@ -100,6 +108,7 @@ class RegisterActivity : AppCompatActivity(), RegisterPresenter.RegisterDelegate
             val imageBitmap = data?.extras?.get("data") as Bitmap
             ivPhoto.scaleType = ImageView.ScaleType.CENTER_CROP
             ivPhoto.setImageBitmap(imageBitmap)
+            hasPhoto = true
         }
     }
 

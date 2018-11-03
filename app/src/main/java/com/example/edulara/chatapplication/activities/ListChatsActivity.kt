@@ -25,11 +25,11 @@ class ListChatsActivity : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_account_circle)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val values = listOf(Contact("Pedro", "pedro@gmail.com"
+        val values = listOf(Contact("Pedro", "pedro@gmail.com",null
                 , "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpwddBjd3Aqu5iWIw--SE84eIVJqSGWbPo-rw-zDmAiW1LRPJ3nw"),
-                Contact("Pedro", "pedro@gmail.com"
+                Contact("Pedro", "pedro@gmail.com",null
                         , "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpwddBjd3Aqu5iWIw--SE84eIVJqSGWbPo-rw-zDmAiW1LRPJ3nw"),
-                Contact("Pedro", "pedro@gmail.com"
+                Contact("Pedro", "pedro@gmail.com",null
                         , "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpwddBjd3Aqu5iWIw--SE84eIVJqSGWbPo-rw-zDmAiW1LRPJ3nw"))
         val list : List<Contact> = values
 

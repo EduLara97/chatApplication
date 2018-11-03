@@ -5,4 +5,5 @@ package com.example.edulara.chatapplication.models
  */
 class Contact(val name:String,
               val email:String,
+              val genre:String?,
               val image:String)
